@@ -36,6 +36,6 @@ public class IntroManager : MonoBehaviour
 
     public void DoPlay()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("gioco");
     }
 }
