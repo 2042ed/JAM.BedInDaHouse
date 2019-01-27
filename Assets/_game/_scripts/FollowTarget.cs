@@ -23,17 +23,25 @@ namespace JAM
         // The direction that will face the target
         public Enums.Directions useSide = Enums.Directions.Up;
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        //private void OnTriggerEnter2D(Collider2D collision)
+        //{
+        //    if (target != null)
+        //        return;
+
+        //    if (collision.gameObject.CompareTag("Player")) {
+        //        gameObject.GetComponent<Collider2D>().isTrigger = false;
+        //        PlayerGO.GetComponent<FollowManager>().AddToQueue(gameObject.transform);
+        //    }
+        //}
+
+        public void Follow()
         {
             if (target != null)
                 return;
 
-            if (collision.gameObject.CompareTag("Player")) {
-                gameObject.GetComponent<Collider2D>().isTrigger = false;
-                PlayerGO.GetComponent<FollowManager>().AddToQueue(gameObject.transform);
-            }
+            gameObject.GetComponent<Collider2D>().isTrigger = false;
+            PlayerGO.GetComponent<FollowManager>().AddToQueue(gameObject.transform);
         }
-
 
         // FixedUpdate is called once per frame
         void FixedUpdate()
