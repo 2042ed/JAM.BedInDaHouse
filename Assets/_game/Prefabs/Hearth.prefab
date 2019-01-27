@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4376651786860468181}
   - component: {fileID: 4486680904029577617}
-  - component: {fileID: 4406712902727007447}
   - component: {fileID: 4351791033798978119}
+  - component: {fileID: 9103626559133804036}
   m_Layer: 0
   m_Name: Hearth
   m_TagString: Untagged
@@ -81,19 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4406712902727007447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4373353544854158113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde7269c73c0d4a0aa7d33419579c17d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointsWorth: 1
 --- !u!60 &4351791033798978119
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -137,3 +124,17 @@ PolygonCollider2D:
       - {x: 0.42, y: -1.28}
       - {x: 1.22, y: -0.48}
       - {x: 1.38, y: -0.37}
+--- !u!114 &9103626559133804036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4373353544854158113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa3c260db47248a18ecb8112019040d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyWhenActivated: 1
+  healthChange: 2
