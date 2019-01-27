@@ -9,9 +9,11 @@ TagManager:
   - Bullet
   - Ground
   - Pickup
-  - zoom
+  - MazeEntrance
   - Character
-  - Character_Alien
+  - House_Alien
+  - House_Lion
+  - House_Anziano
   layers:
   - Default
   - TransparentFX

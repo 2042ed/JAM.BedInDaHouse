@@ -6,7 +6,7 @@ namespace JAM
 {
     public class FollowManager : MonoBehaviour
     {
-
+        private const float smallScale = 0.6f;
         private List<Transform> queue;
 
         private bool inMaze = false;
@@ -21,6 +21,22 @@ namespace JAM
         {
 
         }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("MazeEntrance")) {
+                //Debug.Log("MAZE");
+                if (inMaze) {
+                    inMaze = false;
+                    transform.localScale = new Vector3(1, 1, 1);
+                } else {
+                    inMaze = true;
+                    transform.localScale = new Vector3(smallScale, smallScale, smallScale);
+                }
+            }
+        }
+
+
 
         public void AddToQueue(Transform GO)
         {
