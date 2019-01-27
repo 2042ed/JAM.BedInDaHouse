@@ -11,6 +11,7 @@ TagManager:
   - Pickup
   - zoom
   - Character
+  - Character_Alien
   layers:
   - Default
   - TransparentFX
