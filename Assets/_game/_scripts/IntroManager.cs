@@ -28,6 +28,9 @@ public class IntroManager : MonoBehaviour
     [SerializeField]
     AudioSource Audio;
 
+    [SerializeField]
+    Image CiroFull;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,7 @@ public class IntroManager : MonoBehaviour
         Play.alpha = 0;
         Cover.alpha = 1;
         Cover.DOFade(0, 3);
+        CiroFull.gameObject.SetActive(false);
 
         DOVirtual.DelayedCall(4, () =>
         {
@@ -47,10 +51,14 @@ public class IntroManager : MonoBehaviour
                 {
                     Audio.clip = CiroMumble;
                     Audio.Play();
-                    AllChars.DOAnchorPosX(750, 8).OnComplete(() => {  });
+                    AllChars.DOAnchorPosX(900, 7).SetLoops(-1,LoopType.Restart).OnComplete(() => {
+                        //CiroFull.gameObject.SetActive(true);
+                        //AllChars.DOAnchorPosX(-600, 0);
+                        Audio.Play();
+                    });
                     foreach (var carat in AllChars.GetComponentsInChildren<Image>())
                     {
-                        carat.rectTransform.DOAnchorPosY(20, 1).SetLoops(-1, LoopType.Yoyo);
+                        carat.rectTransform.DOAnchorPosY(Random.Range(-40,40), .5f).SetLoops(-1, LoopType.Yoyo);
                     }
                     Play.DOFade(1, 2);
                 });
