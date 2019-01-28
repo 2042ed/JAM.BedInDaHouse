@@ -25,5 +25,11 @@ namespace UnityPlayground
 
             return true;
         }
+
+        public void ExecuteFromButton()
+        {
+            Debug.Log("reload");
+            ExecuteAction(gameObject);
+        }
     }
 }
