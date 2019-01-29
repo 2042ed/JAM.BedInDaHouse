@@ -21,7 +21,8 @@ To showcase the game at the jam we recorded this short video: <https://www.youtu
 ![game title](docs/images/team_at_work.jpg)
 ![game title](docs/images/game_screenshot1.jpg)
 ![game title](docs/images/game_screenshot2.jpg)
-see the full story and photogallery at <https://jamurr.org>
+
+See the full story and photogallery at <https://jamurr.org>
 
 ## Requirements
 The game runs almost everywhere, it's a simple Unity 2018.3 project.  
