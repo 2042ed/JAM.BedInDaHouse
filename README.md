@@ -4,7 +4,7 @@
 
 A game **designed and developed by kids and teens** at the [Global Game Jam 2019](https://globalgamejam.org/2019/games/bed-da-house), with the theme _"What home means to you"_.
 
-The team (from 10 to 14yo) worked in Rome (at the Adriano's Temple Jam), with the help of their tutors.
+The team (from 10 to 14yo) worked in Rome (at the [Adriano's Temple Jam](https://globalgamejam.org/2019/jam-sites/roma-codemotion-temple-jam)), with the help of their tutors.
 
 They used open-source technologies ([Unity Playground](https://github.com/Unity-Technologies/UnityPlayground) - thanks Ciro Continisio - and [Fungus framework](https://github.com/snozbot/fungus)), learning **tile maps** and drawing in [MagicaVoxel](http://ephtracy.github.io/), writing and acting the dialogues, playing the music and having lots of fun designing levels, characters and puzzles.
 
