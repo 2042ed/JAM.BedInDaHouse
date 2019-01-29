@@ -22,7 +22,7 @@ To showcase the game at the jam we recorded this short video: <https://www.youtu
 ![game title](docs/images/game_screenshot1.jpg)
 ![game title](docs/images/game_screenshot2.jpg)
 
-See the full story and photogallery at <https://jamurr.org>
+See the full story and photogallery at <http://jamurr.org>
 
 ## Requirements
 The game runs almost everywhere, it's a simple Unity 2018.3 project.  
@@ -42,4 +42,4 @@ Team 4+2 are
 <http://creativecommons.org/licenses/by-nc-sa/4.0/>
 
 ## More informations
-This isn't the first Kids Game Jam we do, do check <https://jamurr.org>
+This isn't the first Kids Game Jam we do, do check <http://jamurr.org>
