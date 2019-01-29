@@ -12,15 +12,19 @@ They used open-source technologies ([Unity Playground](https://github.com/Unity-
 
 see official page of the game here: <https://globalgamejam.org/2019/games/bed-da-house>
 
-## PLAY
+## Play
 to play the game here from the browser, please
 <https://jamurr.itch.io/bed-in-da-house>
 
-## video trailer
+## Video Trailer
 to showcase the game at the Jam we recorded this short video <https://www.youtube.com/watch?v=s28Vm8gWLDg>
 
+## Some Screenshot
+![game title](docs/images/game_screenshot1.jpg)
+![game title](docs/images/game_screenshot2.jpg)
+
 ## Requirements
-the game runs quite everywhere, it's a simple Unity 2018.3 project
+the game runs quite everywhere, it's a simple Unity 2018.3 project.  
 The GitHub project is <https://github.com/JAMURR/JAM.BedInDaHouse>
 
 ## Team
@@ -35,5 +39,5 @@ Team 4+2 are
 ## License
 <http://creativecommons.org/licenses/by-nc-sa/4.0/>
 
-## more informations
-<https://jamurr.org>
+## More informations
+this isn't the first Kids Game Jam we do, please check site <https://jamurr.org>
