@@ -29,14 +29,14 @@ namespace JAM
                 if (inMaze) {
                     inMaze = false;
                     transform.localScale = new Vector3(1, 1, 1);
+                    ExitMaze();
                 } else {
                     inMaze = true;
                     transform.localScale = new Vector3(smallScale, smallScale, smallScale);
+                    EnterMaze();
                 }
             }
         }
-
-
 
         public void AddToQueue(Transform GO)
         {
