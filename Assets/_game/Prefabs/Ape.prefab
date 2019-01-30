@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8873087796433873021}
   - component: {fileID: 8889021942436347639}
   - component: {fileID: 8824951376787050879}
+  - component: {fileID: 5500247591078455037}
   - component: {fileID: 8824951376572163521}
   m_Layer: 0
   m_Name: Ape
@@ -134,6 +135,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyWhenActivated: 0
   healthChange: -4
+--- !u!114 &5500247591078455037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8930085435308389187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021b7fab1f6e64b37aee874e6ee1ce1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Usfxr: 0,.5,,.1765,,.373,.3,.8339,.3331,-.1954,,,,,,,,,,,.1984,.0956,,.1231,-.1667,1,,,.1674,,,
 --- !u!114 &8824951376572163521
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,6 +29,10 @@ namespace UnityPlayground
                 // subtract health from the player
                 healthScript.ModifyHealth(healthChange);
 
+                if (GetComponent<JAM.PlaySfx>() != null) {
+                    GetComponent<JAM.PlaySfx>().Play();
+                }
+
                 if (destroyWhenActivated) {
                     Destroy(this.gameObject);
                 }

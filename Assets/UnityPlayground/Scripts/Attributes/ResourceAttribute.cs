@@ -39,6 +39,9 @@ namespace UnityPlayground
                     Debug.LogWarning("User Interface is not in the scene, so the resource cannot be displayed and put in the inventory.");
                 }
 
+                if (GetComponent<JAM.PlaySfx>() != null) {
+                    GetComponent<JAM.PlaySfx>().Play();
+                }
                 Destroy(gameObject);
             }
         }

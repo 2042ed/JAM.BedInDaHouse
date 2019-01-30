@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4486680904029577617}
   - component: {fileID: 4351791033798978119}
   - component: {fileID: 9103626559133804036}
+  - component: {fileID: 4302589066808458005}
   m_Layer: 0
   m_Name: Hearth
   m_TagString: Untagged
@@ -138,3 +139,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyWhenActivated: 1
   healthChange: 2
+--- !u!114 &4302589066808458005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4373353544854158113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021b7fab1f6e64b37aee874e6ee1ce1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Usfxr: 1,.5,,.2759,,.3241,.3,.4643,,.1213,,,,,,,,,,,,,,,,1,,,,,,
