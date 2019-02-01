@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace UnityPlayground
@@ -30,7 +30,7 @@ namespace UnityPlayground
                 healthScript.ModifyHealth(healthChange);
 
                 if (GetComponent<JAM.PlaySfx>() != null) {
-                    GetComponent<JAM.PlaySfx>().Play();
+                   // GetComponent<JAM.PlaySfx>().Play();
                 }
 
                 if (destroyWhenActivated) {
