@@ -40,7 +40,7 @@ namespace UnityPlayground
                 }
                 Destroy(gameObject);
                 if (GetComponent<JAM.PlaySfx>() != null) {
-                    GetComponent<JAM.PlaySfx>().Play();
+                   // GetComponent<JAM.PlaySfx>().Play();
                 }
                
             }
