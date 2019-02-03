@@ -10181,7 +10181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 21
+  itemId: 36
   indentLevel: 2
   text: No
   description: 
@@ -11093,12 +11093,12 @@ PrefabInstance:
     - target: {fileID: 544349967623609437, guid: 917ca366d1f8746feb10a089129f5bd7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 107.1
+      value: 86.7
       objectReference: {fileID: 0}
     - target: {fileID: 544349967623609437, guid: 917ca366d1f8746feb10a089129f5bd7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.9
+      value: -62.1
       objectReference: {fileID: 0}
     - target: {fileID: 544349967623609437, guid: 917ca366d1f8746feb10a089129f5bd7,
         type: 3}
