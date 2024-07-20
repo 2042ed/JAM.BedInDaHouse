@@ -1,4 +1,4 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -19,9 +19,9 @@ namespace Fungus
     #endif
     public sealed class FungusManager : MonoBehaviour
     {
-        static FungusManager instance;
+        volatile static FungusManager instance;  // The keyword "volatile" is friendly to the multi-thread.
         static bool applicationIsQuitting = false;
-        static object _lock = new object();
+        readonly static object _lock = new object();  // The keyword "readonly" is friendly to the multi-thread.
 
         void Awake()
         {
@@ -96,18 +96,23 @@ namespace Fungus
                     return null;
                 }
 
-                lock (_lock)
+                // Use "double checked locking" algorithm to implement the singleton for this "FungusManager" class, which can improve performance.
+                if (instance == null)
                 {
-                    if (instance == null)
+                    lock (_lock)
                     {
-                        var go = new GameObject();
-                        go.name = "FungusManager";
-                        DontDestroyOnLoad(go);
-                        instance = go.AddComponent<FungusManager>();
-                    }
+                        if (instance == null)
+                        {
+                            var go = new GameObject();
+                            go.name = "FungusManager";
+                            DontDestroyOnLoad(go);
+                            instance = go.AddComponent<FungusManager>();
+                        }
 
-                    return instance;
+                    }
                 }
+                
+                return instance;
             }
         }
 

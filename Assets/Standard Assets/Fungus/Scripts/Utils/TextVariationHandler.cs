@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -164,6 +167,15 @@ namespace Fungus
                         break;
                 }
             }
+
+            // As per issue #963 this should just return as if no variation 
+            if(varyingSections.Count == 1)
+            {
+                if (varyingSections[0].type == Section.VaryType.Sequence &&
+                    varyingSections[0].elements.Count == 0)
+                    return false;
+            }
+
 
             return varyingSections.Count > 0;
         }

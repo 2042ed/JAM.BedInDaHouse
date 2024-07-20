@@ -1,6 +1,248 @@
 Changelog {#changelog}
 =========
-[TOC]
+
+Unreleased
+======
+
+v3.13.8
+======
+
+## Fixed
+
+ - Fixed Editor Gui Layout error in 2021.x and up. Thanks to breadnone. 
+
+v3.13.7
+======
+
+## Fixed
+ - Add missing VariableDrawer for ObjectVariable. Thanks to CG-Tespy.
+ - Fix double duplication of blocks in flowchart window. Thanks to ongjinwen.
+ - Dialog ClickAnywhere not supports ignore click delay. Thanks to breadnone.
+ - SetNextLineFlag only flags if Dialog is actually active/writing. Thanks to breadnone. 
+ - TextAdapter with TMPro, now forces mesh update on text change. Fixes cases where a Say/Writer would expect RevealedCharacters to be current but would be previous frame stale value.
+ - Camera Fade clears local callback before execution, fixes #973.
+ - Force portraits undimmed on change sprite.
+ - Correct CommandList focus and selection when adding a new command. Thanks to Arylos07.
+
+## Changed
+ - Block will LogError when an exception is caught from a Command being Executed.
+ - WriterAudio.GetSecondsRemaining reports 0 if not playing. Thanks to KVinS.
+ - Add special case that skips variation logic for sequences that contains no elements, making no change.
+ - Add NotifyEnd to Writer WaitForInputAndClear logic. Thanks to wolfrug.
+ - Drag event handlers now only trigger from direct drags, not just movement. Thanks to CG-Tespy.
+ - NarrativeLogMenu can limit the length of it's output, quick fix for narrative logs that would overflow the max ushort vert limit. Thanks to breadnone.
+
+v3.13.6
+======
+
+## Fixed
+
+ - LoadVariable leaves variable unchanged if key not found, previously was setting to default. Thanks to CG-Tespy.
+ - Portrait MoveToFront now correctly moves holder rather than underlying image itself. Thanks to iwanPlays.
+
+v3.13.5
+======
+
+## Fixed
+
+ - TextAdapter use of Visible Characters null and bounds checked, required for TMPro 3.x
+ - FlowchartWindow styles force set expected values, seems required to deal with changes to UI style defaults in more recent Unity.
+ - InvokeMethod command uses more explicit search and more informative log if error is found in editor.
+
+
+v3.13.4
+======
+
+## Fixed
+
+ - Set actions on Property commands targeting structs now save changes. Previously the target variable was not being copied back to the internal struct, causing changes to be discarded. Impacts the following Property Commands, Color, Matrix, Quaternion, Vector2, Vector3, Vector4.
+ - Writer with 0 speed and TMPro text correctly writes at infinite speed, previously was infinite loop.
+ - Collection Contains* commands now actually show the field to store boolean result.
+ - Writer with TMPro text now correctly calls NotifyGlyph and less susceptible to nested rich text tag confusion. 
+
+## Changed
+
+ - Conversation System finding character by name now uses an exact match with fallback to previous StartsWith. Thanks to hsandt.
+ - Flowchart Window labels no longer forced white, to better accomidate dark theme as of Unity 2019.4.8
+
+
+v3.13.3
+======
+
+## Fixed
+
+ - View Gizmo Drawer specifies type of View, no longer tries to run for every object in scene.
+ - TMProLinkAnim dictionary errors caused by duplicate entries when Domain Reload is disabled, Thanks to yano.
+ - Divide Equal now uses Unicode characters in place of ASCII slash in menus, so it shows correctly.
+
+v3.13.2
+======
+
+## Fixed
+
+- Restore string VariableSubstitution in use of AnyVariableDataPair, found in SetVariable and VariableCondition (#841)
+- Float variable comparison, typo causing comparison to self instead of rhs(#836)
+
+v3.13.1
+======
+
+## Fixed
+
+- Build error in JsonChecker caused by missing asmdef in newer Unity versions. (#833)
+
+v3.13.0
+======
+
+## Added
+
+- Conditional Commands now support multiple comparisons as a chain of && or ||. Thanks to preda2or, and AcademyOfF
+- IWriterListener OnAllWorldsWritten fires when there are no words left to be written but writer may still have pending waits
+- Entry based NarrativeLog alternate. Thanks to cg-tespy
+- Option to grid snap blocks in the FlowchartWindow.
+- TMPro Text animation via link text.
+- Fungus Collection, varaibles, default types, and commands.
+- Github Issue and PR templates.
+
+## Fixed
+
+- Portrait image shown as white when cycled through rapidly.
+- Flowchart Window Search box steals focus
+- Mushroom icon placement incorrect on some versions of Unity. Thanks to TonyJeffree
+- Text and Background colour readability across Unity Versions and Pro skin. Thanks to DesperateHouseDev
+- VariableData indents incorrect.
+- Fix reshow of hidden portrait in Conversation. Thanks to jusw85
+- FlowchartWindow search pop not showing on newer Unity versions.
+- VS Solution file fix for Unity 2019.3.12
+- Inspector DeleteSave button now deletes now more aware of target platform.
+- Fungus VariableData single and mutliline variable drawing in more recent Unity versions.
+- Possible null ref in Conversation editor during variable match check
+- Block connections not drawing if origin block is not drawn.
+
+## Changed
+
+- Portraits are now all cached when requested under their own gameobjects and toggle active.
+- Fungus Docs moved to github wiki
+- JSONObject lib updated to newer version. Thanks to qrostar.
+- CameraManager and View now use Tween types.
+- Dragable EventHandlers now support an array of target dragables. Thanks to SarveshBajaj
+- Flowchart GetVariables by type. Thanks to cg-tespy
+- A null FungusVariables will now report their string value as Null instead of an empty string.
+- Develop updated to Unity 2019.3.13
+- Demo scenes rebuilt in minimum supported Unity version.
+- Block selector now orders blocks by name.
+- Block search now supports partial matches.
+- Update to c#4
+- Updates to Contributing, Code of Conduct.
+- Menu command has a button to add a block for it to target.
+- Character selector now sorts names.
+- Portrait selector now sorts names.
+- Update header license
+- Writer uses InvariantCulture when parsing floats to avoid unexpected behaviour under changing system cultures.
+
+v3.12.0
+======
+
+## Added
+
+- Search should search commands, not just block names (#775). Thanks to AcademyOfF
+- Debug additions (#777) righclicking context menus additions and improvements on commands, blocks, and variables
+- BlockCallers can be seen within the block inspector
+- Variable referencers can be seen logged to the console
+- Added a custom script importer for lua files. Thanks to Matthew Barnes
+- Added Asmdefs
+- Fungus Editor Prefs button to locate FungusEditorResources and changelog
+
+## Fixed
+
+- Defines and fallbacks for 2017 and 2018 (#781)
+- CommandListAdapter sync command selection bidirectionally with selection in underlying reorderablelist
+- Command text with 'Error:' shows red
+- HighSpeedWriterFix; corrected rate of characters and more than 1 character per frame issue.
+- FilterBlocks during SceneChange, now refresh as expected
+- Command and Variables outside of Fungus assembly now locate
+- Character selection preventing edits bug
+- Restore Edit Mode Tests
+
+## Changed
+
+- FungusManager.cs Use "double checked locking" algorithm to implement the singleton for "FungusManager" class, which can improve performance. Thanks to AndyHan1001 
+- CommandSearchHeightFallback on some versions of Unity editor inspector height is not returning correctly so we make an educated guess if it seems unreliable
+- More elaborated use of text in TMPro demo
+- Block Inspector forces type at creation. Thanks to Michaelwolf95
+- Warning when requesting menu elements that are not avaialble, such as more menu items that you have created.
+- Fungus Docs can now generate in github markdown format
+
+
+v3.11.5 {#v3.11.5}
+======
+
+## Fixed
+
+- Mushroom icon for the inspector moved in 2019 as to not overlap the new visibility toggle Unity has added. #745
+- FlowchartWindow MutliSelect now more strictly manages selectedness #744
+- Portrait sprite issue in Unity 2019 #743
+
+## Changed
+
+- Experimental Searchable menus are now enabled by default #746
+
+v3.11.4 {#v3.11.4}
+======
+
+## Changed
+
+- Updated project to Unity 2019.1.0f2
+- Updated to .NET 4.x
+- Updated reference docs
+
+v3.11.3 {#v3.11.3}
+======
+
+## Fixed
+
+- Additional null checks around Flowchart.selectedBlocks and Flowchart.selectedCommands.
+
+v3.11.2 {#v3.11.2}
+======
+
+## Fixed
+
+- Static list caching in editor.
+
+## Changed
+
+- Spacing in debug output related to Block find and execute warnings and failures.
+
+v3.11.1 {#v3.11.1}
+======
+
+## Fixed
+
+- Compile error in Unity 2018.3.6f1
+
+v3.11.0 {#v3.11.0}
+======
+
+## Added
+
+- SetSprite: changes the image on the SpriteRenderer of one or more GameObjects 
+- SetUIImage: changes the image on the Image of one or more GameObjects (Joerg Burbach)
+- Commands to store FungusVariable.ToString into a StringVariable and to parse a string into an Int or Float FungusVariable 
+
+## Fixed
+
+- #729 VariableEditor popup name and key concat no longer has spaces, allows the PopUp to correctly nest items with the same parent
+- #732 BlockInspector correct top panel height in 2018_3 BlockEditor only force unique name if it has changed
+- BlockInspector and BlockEditor changes to display correctly in 2019.1.0a13
+
+## Changed
+
+- #728 FlowchartWindow performance for 100s of blocks
+- #727 Support use of TMPro in Set Text, Get Text and Narrative Log Menu commands
+- #733 Command can now cache a list of referenced variables that are checked by the variablelistadapter for highlighting 
+- Flowchart can identify add variables found via the substitute regex 
+- Commands that use SubstituteVariables on their string data use the new caching method so they can highlight variables that will be used during substitution
+- #733 HasReference added to many commands that lacked them or had only partially checked vars
 
 v3.10.0 {#v3_10_0}
 ======

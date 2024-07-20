@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 
 namespace Fungus
 {
@@ -22,8 +25,7 @@ namespace Fungus
             Sin,
             Tan
         }
-
-
+        
         [Tooltip("Trigonometric function to run.")]
         [SerializeField]
         protected Function function = Function.Sin;
@@ -65,13 +67,7 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            return function.ToString();
+            return function.ToString() + " " + base.GetSummary();
         }
-
-        public override Color GetButtonColor()
-        {
-            return new Color32(235, 191, 217, 255);
-        }
-
     }
 }

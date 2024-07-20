@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
@@ -13,6 +13,7 @@ namespace Fungus.EditorUtils
     {
         #region statics
         public static Command selectedCommand;
+        public static bool SelectedCommandDataStale { get; set; }
 
         public static CommandInfoAttribute GetCommandInfo(System.Type commandType)
         {
@@ -108,8 +109,13 @@ namespace Fungus.EditorUtils
             GUI.backgroundColor = Color.white;
 
             EditorGUILayout.Separator();
-            
+
+            EditorGUI.BeginChangeCheck();
             DrawCommandGUI();
+            if(EditorGUI.EndChangeCheck())
+            {
+                SelectedCommandDataStale = true;
+            }
 
             EditorGUILayout.Separator();
 

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 
 namespace Fungus
 {
@@ -35,7 +38,16 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            return "InvLerp [" + a.Value.ToString() + "-" + b.Value.ToString() + "]";
+            if (outValue.floatRef == null)
+                return "Error: no out value selected";
+
+            return outValue.floatRef.Key + " = [" + a.Value.ToString() + "-" + b.Value.ToString() + "]";
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return a.floatRef == variable || b.floatRef == variable || value.floatRef == variable ||
+                   outValue.floatRef == variable;
         }
 
         public override Color GetButtonColor()

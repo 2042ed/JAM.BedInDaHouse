@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -240,10 +240,6 @@ namespace Fungus
                 if (block != null)
                 {
                     var flowchart = block.GetFlowchart();
-#if UNITY_EDITOR
-                    // Select the new target block in the Flowchart window
-                    flowchart.SelectedBlock = block;
-#endif
                     gameObject.SetActive(false);
                     // Use a coroutine to call the block on the next frame
                     // Have to use the Flowchart gameobject as the MenuDialog is now inactive
@@ -294,8 +290,10 @@ namespace Fungus
         private bool AddOption(string text, bool interactable, bool hideOption, UnityEngine.Events.UnityAction action)
         {
             if (nextOptionIndex >= CachedButtons.Length)
+            {
+                Debug.LogWarning("Unable to add menu item, not enough buttons: " + text);
                 return false;
-
+            }
             //if first option notify that a menu has started
             if(nextOptionIndex == 0)
                 MenuSignals.DoMenuStart(this);
@@ -343,6 +341,10 @@ namespace Fungus
                 gameObject.SetActive(true);
                 StopAllCoroutines();
                 StartCoroutine(WaitForTimeout(duration, targetBlock));
+            }
+            else
+            {
+                Debug.LogWarning("Unable to show timer, no slider set");
             }
         }
 

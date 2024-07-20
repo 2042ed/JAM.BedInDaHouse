@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -55,11 +55,22 @@ namespace Fungus
         /// </summary>
         protected int previousActiveCommandIndex = -1;
 
+        public int PreviousActiveCommandIndex { get { return previousActiveCommandIndex; } }
+
         protected int jumpToCommandIndex = -1;
 
         protected int executionCount;
 
         protected bool executionInfoSet = false;
+
+        /// <summary>
+        /// If set, flowchart will not auto select when it is next executed, used by eventhandlers.
+        /// Only effects the editor.
+        /// </summary>
+        public bool SuppressNextAutoSelection { get; set; }
+
+        [SerializeField] bool suppressAllAutoSelections = false;
+        
 
         protected virtual void Awake()
         {
@@ -111,7 +122,13 @@ namespace Fungus
                 command.CommandIndex = index++;
             }
         }
+
 #endif
+        //editor only state for speeding up flowchart window drawing
+        public bool IsSelected { get; set; }    //local cache of selectedness
+        public enum FilteredState { Full, Partial, None}
+        public FilteredState FilterState { get; set; }    //local cache of filteredness
+        public bool IsControlSelected { get; set; } //local cache of being part of the control exclusion group
 
         #region Public members
 
@@ -220,13 +237,23 @@ namespace Fungus
             executionState = ExecutionState.Executing;
             BlockSignals.DoBlockStart(this);
 
+            bool suppressSelectionChanges = false;
+
             #if UNITY_EDITOR
             // Select the executing block & the first command
-            flowchart.SelectedBlock = this;
-            if (commandList.Count > 0)
+            if (suppressAllAutoSelections || SuppressNextAutoSelection)
             {
-                flowchart.ClearSelectedCommands();
-                flowchart.AddSelectedCommand(commandList[0]);
+                SuppressNextAutoSelection = false;
+                suppressSelectionChanges = true;
+            }
+            else
+            {
+                flowchart.SelectedBlock = this;
+                if (commandList.Count > 0)
+                {
+                    flowchart.ClearSelectedCommands();
+                    flowchart.AddSelectedCommand(commandList[0]);
+                }
             }
             #endif
 
@@ -269,7 +296,7 @@ namespace Fungus
                 var command = commandList[i];
                 activeCommand = command;
 
-                if (flowchart.IsActive())
+                if (flowchart.IsActive() && !suppressSelectionChanges)
                 {
                     // Auto select a command in some situations
                     if ((flowchart.SelectedCommands.Count == 0 && i == 0) ||
@@ -285,7 +312,20 @@ namespace Fungus
                 // set it here in case a command starts and finishes execution before the next window update.
                 command.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
                 BlockSignals.DoCommandExecute(this, command, i, commandList.Count);
+
+#if UNITY_EDITOR
+                try
+                {
+                    command.Execute();
+                }
+                catch (Exception)
+                {
+                    Debug.LogError("Rethrowing Exception thrown by:" + command.GetLocationIdentifier());
+                    throw;
+                }
+#else
                 command.Execute();
+#endif
 
                 // Wait until the executing command sets another command to jump to via Command.Continue()
                 while (jumpToCommandIndex == -1)
@@ -349,6 +389,12 @@ namespace Fungus
         public virtual List<Block> GetConnectedBlocks()
         {
             var connectedBlocks = new List<Block>();
+            GetConnectedBlocks(ref connectedBlocks);
+            return connectedBlocks;
+        }
+
+        public virtual void GetConnectedBlocks(ref List<Block> connectedBlocks)
+        {
             for (int i = 0; i < commandList.Count; i++)
             {
                 var command = commandList[i];
@@ -357,7 +403,6 @@ namespace Fungus
                     command.GetConnectedBlocks(ref connectedBlocks);
                 }
             }
-            return connectedBlocks;
         }
 
         /// <summary>
@@ -384,6 +429,17 @@ namespace Fungus
             }
 
             return -1;
+        }
+
+        public virtual Command GetPreviousActiveCommand()
+        {
+            if (previousActiveCommandIndex >= 0 &&
+                previousActiveCommandIndex < commandList.Count)
+            {
+                return commandList[previousActiveCommandIndex];
+            }
+
+            return null;
         }
 
         /// <summary>

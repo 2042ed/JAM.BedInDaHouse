@@ -1,3 +1,6 @@
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEngine;
 
 namespace Fungus
@@ -18,11 +21,6 @@ namespace Fungus
             outValue.Value = v != 0 ? (1.0f / inValue.Value) : 0.0f;
 
             Continue();
-        }
-
-        public override string GetSummary()
-        {
-            return "Inverse 1/f";
         }
     }
 }

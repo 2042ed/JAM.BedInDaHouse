@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 
 namespace Fungus
 {
@@ -35,17 +38,17 @@ namespace Fungus
         {
             switch (function)
             {
-                case Mode.RoundToInt:
-                    outValue.Value = Mathf.RoundToInt(inValue.Value);
-                    break;
-                case Mode.FloorToInt:
-                    outValue.Value = Mathf.FloorToInt(inValue.Value);
-                    break;
-                case Mode.CeilToInt:
-                    outValue.Value = Mathf.CeilToInt(inValue.Value);
-                    break;
-                default:
-                    break;
+            case Mode.RoundToInt:
+                outValue.Value = Mathf.RoundToInt(inValue.Value);
+                break;
+            case Mode.FloorToInt:
+                outValue.Value = Mathf.FloorToInt(inValue.Value);
+                break;
+            case Mode.CeilToInt:
+                outValue.Value = Mathf.CeilToInt(inValue.Value);
+                break;
+            default:
+                break;
             }
 
             Continue();
@@ -53,7 +56,9 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            return function.ToString();
+            return function.ToString() + 
+                   " in: " + (inValue.floatRef != null ? inValue.floatRef.Key : inValue.Value.ToString()) + 
+                   ", out: " + (outValue.integerRef != null ? outValue.integerRef.Key : outValue.Value.ToString()); ;
         }
 
         public override Color GetButtonColor()
@@ -61,5 +66,9 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return variable == inValue.floatRef || variable == outValue.integerRef;
+        }
     }
 }

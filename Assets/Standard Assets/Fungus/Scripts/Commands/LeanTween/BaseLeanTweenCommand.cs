@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Fungus
@@ -108,6 +111,11 @@ namespace Fungus
         public override Color GetButtonColor()
         {
             return new Color32(233, 163, 180, 255);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return variable == _targetObject.gameObjectRef || variable == _duration.floatRef;
         }
 
         #endregion

@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
@@ -9,7 +9,7 @@ namespace Fungus
     /// Factory class to create new instances of common POD value types used by Unity.
     /// Supports the same types as the SerializedProperty class: Color, Vector2, Vector3, Vector4, Quaternion & Rect.
     /// MoonSharp doesn't work well with these types due to internal interop issues with c#. 
-    /// Use these factory methods to constuct these types instead of using the __new function call in Lua.
+    /// Use these factory methods to construct these types instead of using the __new function call in Lua.
     /// </summary>
     public static class PODTypeFactory  
     {

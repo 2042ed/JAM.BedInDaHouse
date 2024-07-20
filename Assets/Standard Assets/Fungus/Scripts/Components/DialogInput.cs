@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
@@ -84,7 +84,7 @@ namespace Fungus
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
             }
 
-            if (writer != null && writer.IsWriting)
+            if (writer != null)
             {
                 if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
                     (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
@@ -100,7 +100,7 @@ namespace Fungus
             case ClickMode.ClickAnywhere:
                 if (Input.GetMouseButtonDown(0))
                 {
-                    SetNextLineFlag();
+                    SetClickAnywhereClickedFlag();
                 }
                 break;
             case ClickMode.ClickOnDialog:
@@ -149,9 +149,28 @@ namespace Fungus
         /// </summary>
         public virtual void SetNextLineFlag()
         {
-            nextLineInputFlag = true;
+            if(writer.IsWaitingForInput || writer.IsWriting)
+            {
+                nextLineInputFlag = true;
+            }
         }
+        /// <summary>
+        /// Set the ClickAnywhere click flag.
+        /// </summary>
+        public virtual void SetClickAnywhereClickedFlag()
+        {
+            if (ignoreClickTimer > 0f)
+            {
+                return;
+            }
+            ignoreClickTimer = nextClickDelay;
 
+            // Only applies if ClickedAnywhere is selected
+            if (clickMode == ClickMode.ClickAnywhere)
+            {
+                SetNextLineFlag();
+            }
+        }
         /// <summary>
         /// Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI).
         /// </summary>

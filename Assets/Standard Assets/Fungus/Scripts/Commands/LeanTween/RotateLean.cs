@@ -1,4 +1,6 @@
-﻿
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
@@ -69,6 +71,11 @@ namespace Fungus
                 return LeanTween.rotateLocal(_targetObject.Value, rot, _duration);
             else
                 return LeanTween.rotate(_targetObject.Value, rot, _duration);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return variable == _toTransform.transformRef || _toRotation.vector3Ref == variable || base.HasReference(variable);
         }
     }
 }

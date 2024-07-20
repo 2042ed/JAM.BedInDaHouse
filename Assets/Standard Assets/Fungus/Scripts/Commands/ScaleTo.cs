@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -44,6 +44,12 @@ namespace Fungus
             tweenParams.Add("oncompletetarget", gameObject);
             tweenParams.Add("oncompleteparams", this);
             iTween.ScaleTo(_targetObject.Value, tweenParams);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return _toTransform.transformRef == variable || _toScale.vector3Ref == variable ||
+                base.HasReference(variable);
         }
 
         #endregion

@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +12,9 @@ namespace Fungus
     /// This is the recommended way to directly reference a fungus block in external c# scripts,
     /// as it will give you an inspector field that gives a drop down of all the blocks on a 
     /// flowchart, in a similar way to what you would expect from selecting a block on a command.
+    /// 
+    /// If you want to showup in the Callers section of the block, ensure your monobehaviours 
+    /// that have these also implement IBlockCaller.
     /// </summary>
     [System.Serializable]
     public struct BlockReference

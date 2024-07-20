@@ -1,3 +1,6 @@
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
@@ -12,6 +15,9 @@ namespace Fungus
         protected Text textUI;
         protected InputField inputField;
         protected TextMesh textMesh;
+#if UNITY_2018_1_OR_NEWER
+        protected TMPro.TMP_Text tmpro;
+#endif
         protected Component textComponent;
         protected PropertyInfo textProperty;
         protected IWriterTextDestination writerTextDestination;
@@ -28,6 +34,9 @@ namespace Fungus
                 textUI = go.GetComponent<Text>();
                 inputField = go.GetComponent<InputField>();
                 textMesh = go.GetComponent<TextMesh>();
+#if UNITY_2018_1_OR_NEWER
+                tmpro = go.GetComponent<TMPro.TMP_Text>();
+#endif
                 writerTextDestination = go.GetComponent<IWriterTextDestination>();
             }
             else
@@ -35,6 +44,9 @@ namespace Fungus
                 textUI = go.GetComponentInChildren<Text>();
                 inputField = go.GetComponentInChildren<InputField>();
                 textMesh = go.GetComponentInChildren<TextMesh>();
+#if UNITY_2018_1_OR_NEWER
+                tmpro = go.GetComponentInChildren<TMPro.TMP_Text>();
+#endif
                 writerTextDestination = go.GetComponentInChildren<IWriterTextDestination>();
             }
             
@@ -74,7 +86,14 @@ namespace Fungus
                 textMesh.richText = true;
             }
 
-            if(writerTextDestination != null)
+#if UNITY_2018_1_OR_NEWER
+            if (tmpro != null)
+            {
+                tmpro.richText = true;
+            }
+#endif
+
+            if (writerTextDestination != null)
             {
                 writerTextDestination.ForceRichText();
             }
@@ -97,6 +116,12 @@ namespace Fungus
             {
                 textMesh.color = textColor;
             }
+#if UNITY_2018_1_OR_NEWER
+            else if (tmpro != null)
+            {
+                tmpro.color = textColor;
+            }
+#endif
             else if (writerTextDestination != null)
             {
                 writerTextDestination.SetTextColor(textColor);
@@ -126,6 +151,12 @@ namespace Fungus
                 tempColor.a = textAlpha;
                 textMesh.color = tempColor;
             }
+#if UNITY_2018_1_OR_NEWER
+            else if (tmpro != null)
+            {
+                tmpro.alpha = textAlpha;
+            }
+#endif
             else if (writerTextDestination != null)
             {
                 writerTextDestination.SetTextAlpha(textAlpha);
@@ -134,7 +165,11 @@ namespace Fungus
 
         public bool HasTextObject()
         {
-            return (textUI != null || inputField != null || textMesh != null || textComponent != null || writerTextDestination != null);
+            return (textUI != null || inputField != null || textMesh != null || textComponent != null ||
+#if UNITY_2018_1_OR_NEWER
+                tmpro != null ||
+#endif
+                 writerTextDestination != null);
         }
 
         public bool SupportsRichText()
@@ -151,11 +186,82 @@ namespace Fungus
             {
                 return textMesh.richText;
             }
+#if UNITY_2018_1_OR_NEWER
+            if (tmpro != null)
+            {
+                return true;
+            }
+#endif
             if (writerTextDestination != null)
             {
                 return writerTextDestination.SupportsRichText();
             }
             return false;
+        }
+
+        public bool SupportsHiddenCharacters()
+        {
+#if UNITY_2018_1_OR_NEWER
+            if (tmpro != null)
+            {
+                return true;
+            }
+#endif
+            return false;
+        }
+
+        public int RevealedCharacters
+        {
+            get
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    return tmpro.maxVisibleCharacters;
+                }
+#endif
+                return 0;
+            }
+            set
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    tmpro.maxVisibleCharacters = value;
+                }
+#endif
+            }
+        }
+
+        public char LastRevealedCharacter
+        {
+            get
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null && tmpro.textInfo != null && tmpro.textInfo.characterInfo != null)
+                {
+                    if (tmpro.maxVisibleCharacters < tmpro.textInfo.characterInfo.Length && tmpro.maxVisibleCharacters > 0)
+                    {
+                        return tmpro.textInfo.characterInfo[tmpro.maxVisibleCharacters - 1].character;
+                    }
+                }
+#endif
+                return (char)0;
+            }
+        }
+
+        public int CharactersToReveal
+        {
+            get
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    return tmpro.textInfo.characterCount;
+                }
+#endif
+                return 0;
+            }
         }
 
         public virtual string Text
@@ -178,6 +284,12 @@ namespace Fungus
                 {
                     return textMesh.text;
                 }
+#if UNITY_2018_1_OR_NEWER
+                else if (tmpro != null)
+                {
+                    return tmpro.text;
+                }
+#endif
                 else if (textProperty != null)
                 {
                     return textProperty.GetValue(textComponent, null) as string;
@@ -204,6 +316,13 @@ namespace Fungus
                 {
                     textMesh.text = value;
                 }
+#if UNITY_2018_1_OR_NEWER
+                else if (tmpro != null)
+                {
+                    tmpro.text = value;
+                    tmpro.ForceMeshUpdate();
+                }
+#endif
                 else if (textProperty != null)
                 {
                     textProperty.SetValue(textComponent, value, null);

@@ -1,3 +1,6 @@
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEditor;
 using UnityEngine;
 using System;
@@ -11,11 +14,21 @@ namespace Fungus.EditorUtils
     /// </summary>
     public class EventSelectorPopupWindowContent : BasePopupWindowContent
     {
-        static List<System.Type> eventHandlerTypes;
+        static List<System.Type> _eventHandlerTypes;
+        static List<System.Type> EventHandlerTypes
+        {
+            get
+            {
+                if (_eventHandlerTypes == null || _eventHandlerTypes.Count == 0)
+                    CacheEventHandlerTypes();
+
+                return _eventHandlerTypes;
+            }
+        }
 
         static void CacheEventHandlerTypes()
         {
-            eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).Where(x => !x.IsAbstract).ToList();
+            _eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).Where(x => !x.IsAbstract).ToList();
         }
 
         [UnityEditor.Callbacks.DidReloadScripts]
@@ -39,13 +52,8 @@ namespace Fungus.EditorUtils
 
         protected override void PrepareAllItems()
         {
-            if (eventHandlerTypes == null || eventHandlerTypes.Count == 0)
-            {
-                CacheEventHandlerTypes();
-            }
-
             int i = 0;
-            foreach (System.Type type in eventHandlerTypes)
+            foreach (System.Type type in EventHandlerTypes)
             {
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null)
@@ -65,14 +73,14 @@ namespace Fungus.EditorUtils
         {
             SetEventHandlerOperation operation = new SetEventHandlerOperation();
             operation.block = block;
-            operation.eventHandlerType = (index >= 0 && index < eventHandlerTypes.Count) ? eventHandlerTypes[index] : null;
+            operation.eventHandlerType = (index >= 0 && index < EventHandlerTypes.Count) ? EventHandlerTypes[index] : null;
             OnSelectEventHandler(operation);
         }
 
 
         static public void DoEventHandlerPopUp(Rect position, string currentHandlerName, Block block, int width, int height)
         {
-            if (FungusEditorPreferences.useExperimentalMenus)
+            if (!FungusEditorPreferences.useLegacyMenus)
             {
                 //new method
                 EventSelectorPopupWindowContent win = new EventSelectorPopupWindowContent(currentHandlerName, block, width, height);
@@ -93,7 +101,7 @@ namespace Fungus.EditorUtils
             eventHandlerMenu.AddItem(new GUIContent("None"), false, OnSelectEventHandler, noneOperation);
 
             // Add event handlers with no category first
-            foreach (System.Type type in eventHandlerTypes)
+            foreach (System.Type type in EventHandlerTypes)
             {
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null &&
@@ -108,7 +116,7 @@ namespace Fungus.EditorUtils
             }
 
             // Add event handlers with a category afterwards
-            foreach (System.Type type in eventHandlerTypes)
+            foreach (System.Type type in EventHandlerTypes)
             {
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null &&
@@ -148,6 +156,8 @@ namespace Fungus.EditorUtils
                 newHandler.ParentBlock = block;
                 block._EventHandler = newHandler;
             }
+
+            BlockEditor.SelectedBlockDataStale = true;
 
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
