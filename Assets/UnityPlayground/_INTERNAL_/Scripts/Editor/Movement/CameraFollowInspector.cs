@@ -74,7 +74,7 @@ namespace UnityPlayground
 
                 //Dot bottom left
                 EditorGUI.BeginChangeCheck();
-                Vector3 tmpBottomLeft = Handles.FreeMoveHandle(verts[0], handleRotation, handleSize, handleSnap, handleCapFunction);
+                Vector3 tmpBottomLeft = Handles.FreeMoveHandle(verts[0], handleSize, handleSnap, handleCapFunction);
                 if (EditorGUI.EndChangeCheck()) {
                     Undo.RecordObject(followScript, undoLimitBoundsMessage);
                     followScript.left = tmpBottomLeft.x;
@@ -83,7 +83,7 @@ namespace UnityPlayground
 
                 //Dot bottom right
                 EditorGUI.BeginChangeCheck();
-                Vector3 tmpBottomRight = Handles.FreeMoveHandle(verts[1], handleRotation, handleSize, handleSnap, handleCapFunction);
+                Vector3 tmpBottomRight = Handles.FreeMoveHandle(verts[1], handleSize, handleSnap, handleCapFunction);
                 if (EditorGUI.EndChangeCheck()) {
                     Undo.RecordObject(followScript, undoLimitBoundsMessage);
                     followScript.right = tmpBottomRight.x;
@@ -92,7 +92,7 @@ namespace UnityPlayground
 
                 //Dot top right
                 EditorGUI.BeginChangeCheck();
-                Vector3 tmpTopRight = Handles.FreeMoveHandle(verts[2], handleRotation, handleSize, handleSnap, handleCapFunction);
+                Vector3 tmpTopRight = Handles.FreeMoveHandle(verts[2], handleSize, handleSnap, handleCapFunction);
                 if (EditorGUI.EndChangeCheck()) {
                     Undo.RecordObject(followScript, undoLimitBoundsMessage);
                     followScript.right = tmpTopRight.x;
@@ -101,7 +101,7 @@ namespace UnityPlayground
 
                 //Dot top left
                 EditorGUI.BeginChangeCheck();
-                Vector3 tmpTopLeft = Handles.FreeMoveHandle(verts[3], handleRotation, handleSize, handleSnap, handleCapFunction);
+                Vector3 tmpTopLeft = Handles.FreeMoveHandle(verts[3], handleSize, handleSnap, handleCapFunction);
                 if (EditorGUI.EndChangeCheck()) {
                     Undo.RecordObject(followScript, undoLimitBoundsMessage);
                     followScript.left = tmpTopLeft.x;
